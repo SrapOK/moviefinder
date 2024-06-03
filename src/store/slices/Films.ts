@@ -2,8 +2,6 @@ import {
   createSlice,
   PayloadAction
 } from "@reduxjs/toolkit"
-import { SortOrder, SortType } from "./Filter"
-import { RootState } from "store/store"
 import { createAppSelector } from "@/hooks/store"
 
 export interface Film {

@@ -5,14 +5,30 @@ import { FiSun } from "react-icons/fi"
 import { FiMoon } from "react-icons/fi"
 
 import { HOME_PAGE } from "app/providers/Router/paths"
-import { useAppDispatch } from "@/hooks/store"
+import {
+  useAppDispatch,
+  useAppSelector
+} from "@/hooks/store"
 import useTheme from "@/hooks/useTheme"
 import {} from "store/slices/Films"
-import { setSortType } from "store/slices/Filter"
+import {
+  selectSortOrder,
+  selectSortType,
+  setSortOrder,
+  setSortType
+} from "store/slices/Filter"
 
 const Header = () => {
   const { toggleTheme } = useTheme()
   const dispatch = useAppDispatch()
+
+  const sortOrder = useAppSelector(selectSortOrder)
+  const sortType = useAppSelector(selectSortType)
+
+  const toggleSortOrder = () => {
+    if (sortOrder === "asc") dispatch(setSortOrder("desc"))
+    else dispatch(setSortOrder("asc"))
+  }
 
   return (
     <header className='mb-8 md:mb-16'>
@@ -53,28 +69,47 @@ const Header = () => {
           <input
             type='text'
             placeholder='Search'
-            className='input input-bordered  join-item'
+            className={"input input-bordered join-item"}
           />
           <div
             onClick={() =>
-              dispatch(setSortType("Metascore"))
+              sortType === "Metascore"
+                ? toggleSortOrder()
+                : dispatch(setSortType("Metascore"))
             }
-            className='join-item input input-bordered cursor-pointer text select-none flex py-3'
+            className={`join-item input input-bordered cursor-pointer text select-none flex py-3 ${
+              sortType === "Metascore" ? "bg-base-300" : ""
+            }`}
           >
             Рейтинг
             <IoIosArrowRoundDown
               size={20}
-              className='my-auto'
+              className={`my-auto ${
+                sortOrder === "asc" &&
+                sortType === "Metascore"
+                  ? "rotate-180"
+                  : ""
+              }`}
             />
           </div>
           <div
-            onClick={() => dispatch(setSortType("Year"))}
-            className='join-item input input-bordered cursor-pointer text select-none flex py-3'
+            onClick={() =>
+              sortType === "Year"
+                ? toggleSortOrder()
+                : dispatch(setSortType("Year"))
+            }
+            className={`join-item input input-bordered cursor-pointer text select-none flex py-3 ${
+              sortType === "Year" ? "bg-base-300" : ""
+            }`}
           >
             Дата
             <IoIosArrowRoundDown
               size={20}
-              className='my-auto'
+              className={`my-auto ${
+                sortOrder === "asc" && sortType === "Year"
+                  ? "rotate-180"
+                  : ""
+              }`}
             />
           </div>
         </div>

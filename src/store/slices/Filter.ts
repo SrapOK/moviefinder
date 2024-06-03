@@ -9,14 +9,12 @@ export type SortOrder = "asc" | "desc"
 interface InitialState {
   query: string
   sortType: SortType
-  page?: number
   sortOrder: SortOrder
 }
 
 const initialState: InitialState = {
   query: "",
   sortType: "Metascore",
-  page: 1,
   sortOrder: "desc"
 }
 
@@ -27,20 +25,20 @@ const filterSlice = createSlice({
     setQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload
     },
-    setPage: (state, action: PayloadAction<number>) => {
-      state.page = action.payload
-    },
     setSortType: (
       state,
       action: PayloadAction<SortType>
     ) => {
       state.sortType = action.payload
+    },
+    setSortOrder: (
+      state,
+      action: PayloadAction<SortOrder>
+    ) => {
+      state.sortOrder = action.payload
     }
   },
   selectors: {
-    selectCurrentPage: state => {
-      return state.page
-    },
     selectQuery: state => {
       return state.query
     },
@@ -53,10 +51,9 @@ const filterSlice = createSlice({
   }
 })
 
-export const { setQuery, setPage, setSortType } =
+export const { setQuery, setSortType, setSortOrder } =
   filterSlice.actions
 export const {
-  selectCurrentPage,
   selectQuery,
   selectSortType,
   selectSortOrder
