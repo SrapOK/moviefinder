@@ -1,5 +1,5 @@
 import FilmDetails from "components/FilmDetails"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import type { Film } from "store/slices/Films"
 
 const data: Film = {
@@ -23,11 +23,19 @@ const data: Film = {
 
 const Film = () => {
   const { id } = useParams()
+  const navigate = useNavigate()
 
-  console.log(id)
   return (
     <div>
       <FilmDetails {...data} />
+      <div className='w-full flex justify-center mt-10'>
+        <button
+          onClick={() => navigate(-1)}
+          className=' btn  btn-secondary font-semibold text-lg px-8 text-secondary-content'
+        >
+          Back
+        </button>
+      </div>
     </div>
   )
 }

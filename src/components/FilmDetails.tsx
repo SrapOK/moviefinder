@@ -36,7 +36,7 @@ const FilmDetails: FC<FilmDetails> = props => {
   } = props
 
   return (
-    <div className='hero min-h-screen bg-base-200 px-20'>
+    <div className='hero min-h-screen bg-base-300 px-4 md:px-20'>
       <div className='hero-content flex-col lg:flex-row gap-10'>
         <div>
           <img
@@ -91,7 +91,7 @@ const FilmDetails: FC<FilmDetails> = props => {
               <div>{Country}</div>
             </div>
           </div>
-          <p className='mt-8 text-pretty indent-10 leading-relaxed text-justify  '>
+          <p className='text-pretty indent-10 leading-relaxed text-justify py-8'>
             {Plot}
           </p>
         </div>

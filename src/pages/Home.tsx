@@ -1,60 +1,16 @@
-import { FilmCardProps } from "components/FilmCard"
 import FilmList from "widgets/FilmList"
 
-const list: FilmCardProps[] = [
-  {
-    imdbID: "1",
-    Title: "fds",
-    Plot: "fdsaf",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg",
-    Metascore: "100",
-    Year: "2004"
-  },
-  {
-    imdbID: "2",
-    Title: "jhfas",
-    Plot: "lorem",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg",
-    Metascore: "80",
-    Year: "2010"
-  },
-  {
-    imdbID: "3",
-    Title: "jhfas3",
-    Plot: "lorem",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg",
-    Metascore: "80",
-    Year: "2010"
-  },
-  {
-    imdbID: "4",
-    Title: "jhfas4",
-    Plot: "lorem",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg",
-    Metascore: "80",
-    Year: "2010"
-  },
-  {
-    imdbID: "5",
-    Title: "jhfas",
-    Plot: "lorem",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg",
-    Metascore: "80",
-    Year: "2010"
-  }
-]
+import { useAppSelector } from "@/hooks/store"
+import { selectFilms } from "store/slices/Films"
 
-const MainPage = () => {
+const Home = () => {
+  const data = useAppSelector(selectFilms)
+
   return (
     <div>
-      <FilmList list={list} />
+      <FilmList list={data} />
     </div>
   )
 }
 
-export default MainPage
+export default Home

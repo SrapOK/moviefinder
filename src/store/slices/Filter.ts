@@ -3,20 +3,21 @@ import {
   createSlice
 } from "@reduxjs/toolkit"
 
-type FilmType = "movie" | "series" | "episode"
+export type SortType = "Metascore" | "Year"
+export type SortOrder = "asc" | "desc"
 
 interface InitialState {
   query: string
-  filmType?: FilmType
-  year?: number
-  dataType?: "json" | "xml"
+  sortType: SortType
   page?: number
+  sortOrder: SortOrder
 }
 
 const initialState: InitialState = {
   query: "",
-  dataType: "xml",
-  page: 1
+  sortType: "Metascore",
+  page: 1,
+  sortOrder: "desc"
 }
 
 const filterSlice = createSlice({
@@ -29,35 +30,36 @@ const filterSlice = createSlice({
     setPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload
     },
-    setYear: (state, action: PayloadAction<number>) => {
-      state.year = action.payload
-    },
-    setFilmType: (
+    setSortType: (
       state,
-      action: PayloadAction<FilmType>
+      action: PayloadAction<SortType>
     ) => {
-      state.filmType = action.payload
+      state.sortType = action.payload
     }
   },
   selectors: {
     selectCurrentPage: state => {
       return state.page
     },
-    selectYear: state => {
-      return state.year
-    },
     selectQuery: state => {
       return state.query
+    },
+    selectSortType: state => {
+      return state.sortType
+    },
+    selectSortOrder: state => {
+      return state.sortOrder
     }
   }
 })
 
-export const { setQuery, setPage, setYear, setFilmType } =
+export const { setQuery, setPage, setSortType } =
   filterSlice.actions
 export const {
   selectCurrentPage,
-  selectYear,
-  selectQuery
+  selectQuery,
+  selectSortType,
+  selectSortOrder
 } = filterSlice.selectors
 
 export default filterSlice.reducer
