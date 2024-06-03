@@ -1,6 +1,8 @@
-import { FILM_PAGE } from "app/providers/Router/paths"
 import { FC } from "react"
 import { Link } from "react-router-dom"
+
+import { FILM_PAGE } from "app/providers/Router/paths"
+
 import { Film } from "store/slices/Films"
 
 export type FilmCardProps = Pick<
