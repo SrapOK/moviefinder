@@ -1,6 +1,6 @@
 import { FILM_PAGE } from "app/providers/Router/paths"
 import { FC } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Film } from "store/slices/Films"
 
 export type FilmCardProps = Pick<
@@ -16,7 +16,7 @@ export type FilmCardProps = Pick<
 const FilmCard: FC<FilmCardProps> = props => {
   return (
     <Link to={FILM_PAGE + props.imdbID}>
-      <div className=' my-4 card card-compact w-fit bg-base-100 shadow-xl transition-all duration-500 hover:shadow-2xl hover:border-base-300 hover:-translate-y-1 cursor-pointer border-2 border-transparent'>
+      <div className=' my-4 card card-compact w-fit bg-base-100 shadow-xl transition-all duration-500 hover:shadow-2xl hover:border-accent hover:-translate-y-1 cursor-pointer border border-transparent'>
         <figure>
           <img src={props.Poster} alt='poster' />
         </figure>
@@ -26,8 +26,18 @@ const FilmCard: FC<FilmCardProps> = props => {
           </h2>
           <p>{props.Plot}</p>
           <div className='card-actions flex flex-col lg:flex-row lg:justify-between'>
-            <div>Metascore: {props.Metascore}</div>
-            <div>Released: {props.Year}</div>
+            <div>
+              Metascore:{" "}
+              <span className='text-accent'>
+                {props.Metascore}
+              </span>{" "}
+            </div>
+            <div>
+              Released:{" "}
+              <span className='text-accent'>
+                {props.Year}
+              </span>{" "}
+            </div>
           </div>
         </div>
       </div>
