@@ -1,4 +1,4 @@
-import { Theme } from "./slices/Theme"
+import { Theme } from "@/hooks/useTheme"
 
 abstract class Registry {
   static getItem<T>(key: string): T | null {

@@ -24,6 +24,9 @@
     "noFallthroughCasesInSwitch": true,
     /* Aliases */
     "paths": {
+      "shared/*": [
+        "./src/shared/*"
+      ],
       "components/*": [
         "./src/components/*"
       ],

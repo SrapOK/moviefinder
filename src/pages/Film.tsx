@@ -1,4 +1,4 @@
-import FilmDetails from "components/FilmDetails"
+import FilmDetails from "widgets/FilmDetails"
 import { useNavigate, useParams } from "react-router-dom"
 import type { Film } from "store/slices/Films"
 
