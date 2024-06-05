@@ -35,17 +35,17 @@ const FilterController: FC<
           ? toggleSortOrder()
           : dispatch(setSortType(sortTypeController))
       }
-      className={`join-item input input-bordered cursor-pointer text select-none flex py-3 ${
+      className={` join-item input input-bordered cursor-pointer flex select-none py-3 ${
         sortType === sortTypeController ? "bg-base-300" : ""
       }`}
     >
       {children}
       <IoIosArrowRoundDown
         size={20}
-        className={`my-auto ${
+        className={` duration-300 my-auto   ${
           sortOrder === "asc" &&
           sortType === sortTypeController
-            ? "rotate-180"
+            ? "-rotate-180 translate-y-1.5"
             : ""
         }`}
       />

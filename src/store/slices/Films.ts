@@ -1,8 +1,16 @@
 import {
-  createSlice,
-  PayloadAction
+  asyncThunkCreator,
+  buildCreateSlice
 } from "@reduxjs/toolkit"
+
 import { createAppSelector } from "@/hooks/store"
+import filmApi from "shared/api/films"
+
+const createAsyncSlice = buildCreateSlice({
+  creators: {
+    asyncThunk: asyncThunkCreator
+  }
+})
 
 export interface Film {
   imdbID: string
@@ -23,75 +31,47 @@ export interface Film {
 
 interface InitialState {
   list: Film[]
+  loading: boolean
+  total: number
+  error: any
 }
 
 const initialState: InitialState = {
-  list: [
-    {
-      imdbID: "1",
-      Title: "fds",
-      Plot: "fdsaf",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg",
-      Metascore: "99",
-      Year: "2004"
-    },
-    {
-      imdbID: "2",
-      Title: "jhfas",
-      Plot: "lorem",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg",
-      Metascore: "50",
-      Year: "2010"
-    },
-    {
-      imdbID: "3",
-      Title: "jhfas3",
-      Plot: "lorem",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg",
-      Metascore: "83",
-      Year: "1999"
-    },
-    {
-      imdbID: "4",
-      Title: "jhfas4",
-      Plot: "lorem",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg",
-      Metascore: "82",
-      Year: "2011"
-    },
-    {
-      imdbID: "5",
-      Title: "jhfas",
-      Plot: "lorem",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg",
-      Metascore: "81",
-      Year: "2012"
-    },
-    {
-      imdbID: "6",
-      Title: "6666",
-      Plot: "lorem ipsum",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg",
-      Metascore: "7",
-      Year: "1950"
-    }
-  ]
+  list: [],
+  loading: false,
+  error: undefined,
+  total: 0
 }
 
-const filmsSlice = createSlice({
+const filmsSlice = createAsyncSlice({
   name: "films",
   initialState,
-  reducers: {
-    setFilms: (state, action: PayloadAction<Film[]>) => {
-      state.list = action.payload
-    }
-  },
+  reducers: create => ({
+    fetchFilms: create.asyncThunk(
+      async (query: string) => {
+        const res = await filmApi.getFilms(query)
+        console.log(res)
+        return res
+      },
+      {
+        pending: state => {
+          state.loading = true
+        },
+        rejected: (state, action) => {
+          state.error = action.payload ?? action.error
+        },
+        fulfilled: (state, action) => {
+          if (action.payload) {
+            state.list = action.payload.Search
+            state.total = action.payload.totalResults
+          }
+        },
+        settled: state => {
+          state.loading = false
+        }
+      }
+    )
+  }),
   selectors: {
     selectFilm: (state, id: string) => {
       return state.list.filter(film => film.imdbID === id)
@@ -115,7 +95,7 @@ export const selectFilms = createAppSelector(
     } else return films
   }
 )
-export const { setFilms } = filmsSlice.actions
+export const { fetchFilms } = filmsSlice.actions
 export const { selectFilm } = filmsSlice.selectors
 
 export default filmsSlice.reducer

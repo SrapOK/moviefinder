@@ -2,7 +2,7 @@ import axios from "axios"
 import { privateInterseptor } from "./interseptors"
 
 const $host = axios.create({
-  baseURL: "foo", //import.meta.env.VITE_BASE_URL
+  baseURL: import.meta.env.VITE_BASE_URL, //import.meta.env.VITE_BASE_URL
   timeout: 1000
 })
 

@@ -18,9 +18,13 @@ export type FilmCardProps = Pick<
 const FilmCard: FC<FilmCardProps> = props => {
   return (
     <Link to={FILM_PAGE + props.imdbID}>
-      <div className=' my-4 card card-compact w-fit bg-base-100 shadow-xl transition-all duration-500 hover:shadow-2xl hover:border-accent hover:-translate-y-1 cursor-pointer border border-transparent'>
+      <div className='my-4 card w-min  card-compact bg-base-100 shadow-xl transition-all duration-500 hover:shadow-2xl hover:border-accent hover:-translate-y-6 hover:scale-105 cursor-pointer border border-transparent '>
         <figure>
-          <img src={props.Poster} alt='poster' />
+          <img
+            src={props.Poster}
+            className=' min-w-fit'
+            alt='poster'
+          />
         </figure>
         <div className='card-body'>
           <h2 className='card-title mx-auto'>

@@ -10,12 +10,14 @@ interface InitialState {
   query: string
   sortType: SortType
   sortOrder: SortOrder
+  page: number
 }
 
 const initialState: InitialState = {
-  query: "",
+  query: "Star Wars",
   sortType: "Metascore",
-  sortOrder: "desc"
+  sortOrder: "desc",
+  page: 1
 }
 
 const filterSlice = createSlice({
