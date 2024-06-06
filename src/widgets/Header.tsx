@@ -13,7 +13,7 @@ const Header = () => {
             className={"input input-bordered join-item"}
           />
           <FilterController
-            sortTypeController={"Metascore"}
+            sortTypeController={"imdbRating"}
           >
             Рейтинг
           </FilterController>

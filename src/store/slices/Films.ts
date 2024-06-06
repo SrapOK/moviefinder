@@ -47,10 +47,34 @@ const filmsSlice = createAsyncSlice({
   name: "films",
   initialState,
   reducers: create => ({
+    addFilms: create.asyncThunk(
+      async (params: { query: string; page: number }) => {
+        const res = await filmApi.getFilms({ ...params })
+        return res
+      },
+      {
+        pending: state => {
+          state.loading = true
+        },
+        rejected: (state, action) => {
+          state.error = action.payload ?? action.error
+        },
+        fulfilled: (state, action) => {
+          if (action.payload) {
+            state.list.push(...action.payload.Search)
+            state.total = action.payload.totalResults
+          }
+        },
+        settled: state => {
+          state.loading = false
+        }
+      }
+    ),
     fetchFilms: create.asyncThunk(
-      async (query: string) => {
-        const res = await filmApi.getFilms(query)
-        console.log(res)
+      async (params: { query: string; page: number }) => {
+        const res = await filmApi.getFilms({
+          ...params
+        })
         return res
       },
       {
@@ -75,6 +99,12 @@ const filmsSlice = createAsyncSlice({
   selectors: {
     selectFilm: (state, id: string) => {
       return state.list.filter(film => film.imdbID === id)
+    },
+    selectTotalFilms: state => {
+      return state.total
+    },
+    selectFilmsStatus: state => {
+      return state.loading
     }
   }
 })
@@ -95,7 +125,11 @@ export const selectFilms = createAppSelector(
     } else return films
   }
 )
-export const { fetchFilms } = filmsSlice.actions
-export const { selectFilm } = filmsSlice.selectors
+export const { fetchFilms, addFilms } = filmsSlice.actions
+export const {
+  selectFilm,
+  selectFilmsStatus,
+  selectTotalFilms
+} = filmsSlice.selectors
 
 export default filmsSlice.reducer

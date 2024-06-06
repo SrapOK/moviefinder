@@ -24,11 +24,15 @@ class filmApi {
     }
   }
 
-  static getFilms = async (s: string) => {
+  static getFilms = async (params: {
+    query: string
+    page: number
+  }) => {
     try {
       const data = await $host.get<FilmsResponse>("", {
         params: {
-          s: s
+          s: params.query,
+          page: params.page
         }
       })
       const preparedData = await filmApi.populateFilms(

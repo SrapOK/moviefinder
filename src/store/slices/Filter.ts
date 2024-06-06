@@ -3,7 +3,7 @@ import {
   createSlice
 } from "@reduxjs/toolkit"
 
-export type SortType = "Metascore" | "Year"
+export type SortType = "imdbRating" | "Year"
 export type SortOrder = "asc" | "desc"
 
 interface InitialState {
@@ -14,8 +14,8 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  query: "Star Wars",
-  sortType: "Metascore",
+  query: "John Wick",
+  sortType: "imdbRating",
   sortOrder: "desc",
   page: 1
 }
@@ -38,6 +38,9 @@ const filterSlice = createSlice({
       action: PayloadAction<SortOrder>
     ) => {
       state.sortOrder = action.payload
+    },
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload
     }
   },
   selectors: {
@@ -49,16 +52,24 @@ const filterSlice = createSlice({
     },
     selectSortOrder: state => {
       return state.sortOrder
+    },
+    selectPage: state => {
+      return state.page
     }
   }
 })
 
-export const { setQuery, setSortType, setSortOrder } =
-  filterSlice.actions
+export const {
+  setQuery,
+  setSortType,
+  setSortOrder,
+  setPage
+} = filterSlice.actions
 export const {
   selectQuery,
   selectSortType,
-  selectSortOrder
+  selectSortOrder,
+  selectPage
 } = filterSlice.selectors
 
 export default filterSlice.reducer

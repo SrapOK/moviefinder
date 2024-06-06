@@ -13,31 +13,43 @@ export type FilmCardProps = Pick<
   | "Year"
   | "imdbID"
   | "Metascore"
+  | "imdbRating"
 >
 
 const FilmCard: FC<FilmCardProps> = props => {
   return (
     <Link to={FILM_PAGE + props.imdbID}>
-      <div className='my-4 card w-min  card-compact bg-base-100 shadow-xl transition-all duration-500 hover:shadow-2xl hover:border-accent hover:-translate-y-6 hover:scale-105 cursor-pointer border border-transparent '>
+      <div className='my-4 card min-w-[300px] w-min  card-compact bg-base-100 shadow-xl transition-all duration-500 hover:shadow-2xl hover:border-accent hover:-translate-y-6 hover:scale-105 cursor-pointer border border-transparent '>
         <figure>
-          <img
-            src={props.Poster}
-            className=' min-w-fit'
-            alt='poster'
-          />
+          {props.Poster !== "N/A" ? (
+            <img
+              src={props.Poster}
+              className=' min-w-fit'
+              alt='poster'
+            />
+          ) : null}
         </figure>
         <div className='card-body'>
           <h2 className='card-title mx-auto'>
             {props.Title}
           </h2>
-          <p>{props.Plot}</p>
+          {props.Plot !== "N/A" ? (
+            <p>{props.Plot}</p>
+          ) : null}
           <div className='card-actions flex flex-col lg:flex-row lg:justify-between'>
-            <div>
-              Metascore:{" "}
+            <div
+              className={`${
+                props.imdbRating === "N/A"
+                  ? "invisible"
+                  : ""
+              }`}
+            >
+              Rating:{" "}
               <span className='text-accent'>
-                {props.Metascore}
+                {props.imdbRating}
               </span>{" "}
             </div>
+
             <div>
               Released:{" "}
               <span className='text-accent'>

@@ -4,22 +4,84 @@ import {
   useAppDispatch,
   useAppSelector
 } from "@/hooks/store"
-import { fetchFilms, selectFilms } from "store/slices/Films"
-import { useEffect } from "react"
-import { selectQuery } from "store/slices/Filter"
+import {
+  addFilms,
+  fetchFilms,
+  selectFilms,
+  selectFilmsStatus,
+  selectTotalFilms
+} from "store/slices/Films"
+import {
+  Suspense,
+  useDeferredValue,
+  useEffect,
+  useRef
+} from "react"
+import {
+  selectPage,
+  selectQuery,
+  setPage
+} from "store/slices/Filter"
+import useElementOnScreen from "@/hooks/useElementOnScreen"
+
+import { IoIosArrowRoundUp } from "react-icons/io"
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" })
+}
 
 const Home = () => {
-  const data = useAppSelector(selectFilms)
+  const films = useAppSelector(selectFilms)
+  const deferredFilms = useDeferredValue(films)
   const query = useAppSelector(selectQuery)
+  const page = useAppSelector(selectPage)
+  const totalFilms = useAppSelector(selectTotalFilms)
+  const isLoading = useAppSelector(selectFilmsStatus)
+  const isLastPage = Math.ceil(totalFilms / 10) <= page
+  const isMounting = useRef(true)
+
+  const [intersectionRef, isVisible] = useElementOnScreen()
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(fetchFilms(query))
-  }, [])
+    if (page === 1) dispatch(fetchFilms({ query, page }))
+  }, [query])
+
+  useEffect(() => {
+    if (!isLastPage && isVisible)
+      dispatch(setPage(page + 1))
+  }, [isVisible])
+
+  useEffect(() => {
+    if (isMounting.current === true) {
+      isMounting.current = false
+    } else dispatch(addFilms({ query, page }))
+  }, [page])
 
   return (
     <div>
-      <FilmList list={data} />
+      <div className='min-h-screen'>
+        <Suspense fallback={<p>loading</p>}>
+          <FilmList list={deferredFilms} />
+        </Suspense>
+      </div>
+
+      <div
+        className='w-full h-10 mt-10 flex flex-col gap-10'
+        ref={intersectionRef}
+      >
+        {isLoading ? (
+          <h3 className=' mx-auto font-semibold text-xl'>
+            Loading...
+          </h3>
+        ) : null}
+        <a
+          onClick={scrollToTop}
+          className='btn btn-circle mx-auto'
+        >
+          <IoIosArrowRoundUp className=' size-full' />
+        </a>
+      </div>
     </div>
   )
 }
