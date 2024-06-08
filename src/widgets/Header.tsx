@@ -1,5 +1,6 @@
 import Navbar from "components/Navbar"
 import FilterController from "components/FilterController"
+import SearchInput from "shared/ui/SearchInput"
 
 const Header = () => {
   return (
@@ -7,11 +8,7 @@ const Header = () => {
       <Navbar />
       <div className='flex justify-center'>
         <div className='join join-vertical md:join-horizontal mx-10 w-fit'>
-          <input
-            type='text'
-            placeholder='Search'
-            className={"input input-bordered join-item"}
-          />
+          <SearchInput />
           <FilterController
             sortTypeController={"imdbRating"}
           >

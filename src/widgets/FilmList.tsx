@@ -1,13 +1,13 @@
 import FilmCard, {
   FilmCardProps
 } from "components/FilmCard"
-import { FC } from "react"
+import { FC, memo } from "react"
 
 interface FilmListProps {
   list: FilmCardProps[]
 }
 
-const FilmList: FC<FilmListProps> = props => {
+const FilmList: FC<FilmListProps> = memo(props => {
   return (
     <div className='flex flex-row flex-wrap justify-evenly gap-6 px-8'>
       {props.list.map((item, index) => {
@@ -17,6 +17,6 @@ const FilmList: FC<FilmListProps> = props => {
       })}
     </div>
   )
-}
+})
 
 export default FilmList

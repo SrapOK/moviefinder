@@ -7,7 +7,7 @@ type FilmsResponse = {
   Response: boolean
 }
 
-type Plot = "full" | ""
+type Plot = "full" | "short" | ""
 
 class filmApi {
   static getFilmById = async (
