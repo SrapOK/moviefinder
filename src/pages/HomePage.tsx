@@ -1,3 +1,11 @@
+import {
+  Suspense,
+  useDeferredValue,
+  useEffect,
+  useRef
+} from "react"
+import { IoIosArrowRoundUp } from "react-icons/io"
+
 import FilmList from "widgets/FilmList"
 
 import {
@@ -11,12 +19,7 @@ import {
   selectFilmsStatus,
   selectTotalFilms
 } from "store/slices/Films"
-import {
-  Suspense,
-  useDeferredValue,
-  useEffect,
-  useRef
-} from "react"
+
 import {
   selectPage,
   selectQuery,
@@ -24,13 +27,11 @@ import {
 } from "store/slices/Filter"
 import useElementOnScreen from "@/hooks/useElementOnScreen"
 
-import { IoIosArrowRoundUp } from "react-icons/io"
-
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" })
 }
 
-const Home = () => {
+const HomePage = () => {
   const films = useAppSelector(selectFilms)
   const deferredFilms = useDeferredValue(films)
   const query = useAppSelector(selectQuery)
@@ -44,7 +45,8 @@ const Home = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if (page === 1) dispatch(fetchFilms({ query, page }))
+    dispatch(setPage(1))
+    dispatch(fetchFilms({ query, page: 1 }))
   }, [query])
 
   useEffect(() => {
@@ -55,7 +57,8 @@ const Home = () => {
   useEffect(() => {
     if (isMounting.current === true) {
       isMounting.current = false
-    } else dispatch(addFilms({ query, page }))
+    } else if (page !== 1)
+      dispatch(addFilms({ query, page }))
   }, [page])
 
   return (
@@ -86,4 +89,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomePage

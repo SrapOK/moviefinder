@@ -33,10 +33,13 @@ const FilmDetails: FC<FilmDetails> = ({
             className='max-w-sm rounded-lg shadow-2xl'
           />
           <div className=' rounded-lg py-2 px-4 space-y-2 text-lg bg-accent bg-opacity-80 mt-6 text-accent-content'>
-            <FilmInfoRow
-              title='Metascore'
-              info={Metascore}
-            />
+            {Metascore !== "N/A" ? (
+              <FilmInfoRow
+                title='Metascore'
+                info={Metascore}
+              />
+            ) : null}
+
             <FilmInfoRow
               title='imdbRating'
               info={imdbRating}

@@ -27,6 +27,7 @@ export interface Film {
   Country: string
   Poster: string
   Genres: string
+  Response: boolean
 }
 
 interface InitialState {
@@ -60,7 +61,7 @@ const filmsSlice = createAsyncSlice({
           state.error = action.payload ?? action.error
         },
         fulfilled: (state, action) => {
-          if (action.payload) {
+          if (action.payload?.Response) {
             state.list.push(...action.payload.Search)
             state.total = action.payload.totalResults
           }
@@ -85,7 +86,7 @@ const filmsSlice = createAsyncSlice({
           state.error = action.payload ?? action.error
         },
         fulfilled: (state, action) => {
-          if (action.payload) {
+          if (action.payload?.Response) {
             state.list = action.payload.Search
             state.total = action.payload.totalResults
           }

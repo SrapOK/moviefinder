@@ -1,44 +1,64 @@
-import FilmDetails from "widgets/FilmDetails"
+import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+
 import {
   selectFilmById,
   type Film
 } from "store/slices/Films"
 import { useAppSelector } from "@/hooks/store"
-import filmApi from "shared/api/films"
-import { useEffect, useState } from "react"
-import { HOME_PAGE } from "app/providers/Router/paths"
+import filmApi, { ErrorResponse } from "shared/api/films"
 
-const Film = () => {
+import FilmDetails from "widgets/FilmDetails"
+
+const FilmPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-  const [film, setFilm] = useState(
-    useAppSelector(state => selectFilmById(state, id))
-  )
+  const [film, setFilm] = useState<
+    Film | ErrorResponse | undefined
+  >(useAppSelector(state => selectFilmById(state, id)))
 
   useEffect(() => {
-    if (!id) navigate(HOME_PAGE)
-    else {
-      const film = filmApi
+    if (typeof id !== "undefined") {
+      filmApi
         .getFilmById(id, "full")
         .then(res => res?.data)
         .then(film => setFilm(film))
     }
   }, [])
 
-  return (
-    <div>
-      <FilmDetails {...film} />
-      <div className='w-full flex justify-center mt-10'>
-        <button
-          onClick={() => navigate(-1)}
-          className='btn btn-secondary font-semibold text-lg px-8 text-secondary-content'
-        >
-          Back
-        </button>
+  if (
+    typeof film !== "undefined" &&
+    film.Response !== false
+  ) {
+    return (
+      <div>
+        <FilmDetails {...film} />
+        <div className='w-full flex justify-center mt-10'>
+          <button
+            onClick={() => navigate(-1)}
+            className='btn btn-secondary font-semibold text-lg px-8 text-secondary-content'
+          >
+            Back
+          </button>
+        </div>
       </div>
-    </div>
-  )
+    )
+  } else
+    return (
+      <div>
+        <h2 className='font-bold text-2xl'>
+          Incorrect Imdb Id
+        </h2>
+        <div className='w-full flex justify-center mt-10'>
+          <button
+            onClick={() => navigate(-1)}
+            className='btn btn-secondary font-semibold text-lg px-8 text-secondary-content'
+          >
+            Back
+          </button>
+        </div>
+      </div>
+    )
 }
 
-export default Film
+export default FilmPage

@@ -1,12 +1,16 @@
 import { Film } from "store/slices/Films"
 import $host from "."
 
-type FilmsResponse = {
+export type FilmsResponse = {
   Search: Film[]
   totalResults: number
-  Response: boolean
+  Response: true
 }
 
+export type ErrorResponse = {
+  Error: string
+  Response: false
+}
 type Plot = "full" | "short" | ""
 
 class filmApi {
@@ -15,9 +19,12 @@ class filmApi {
     plot: Plot = ""
   ) => {
     try {
-      const data = await $host.get<Film>("", {
-        params: { i: id, plot: plot }
-      })
+      const data = await $host.get<Film | ErrorResponse>(
+        "",
+        {
+          params: { i: id, plot: plot }
+        }
+      )
       return data
     } catch (e) {
       console.warn(e)
@@ -29,14 +36,16 @@ class filmApi {
     page: number
   }) => {
     try {
-      const data = await $host.get<FilmsResponse>("", {
+      const data = await $host.get<
+        FilmsResponse | ErrorResponse
+      >("", {
         params: {
           s: params.query,
           page: params.page
         }
       })
       const preparedData = await filmApi.populateFilms(
-        data.data.Search
+        data.data.Response ? data.data.Search : []
       )
       return { ...data.data, Search: preparedData }
     } catch (e) {
