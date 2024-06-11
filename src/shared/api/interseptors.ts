@@ -31,15 +31,9 @@ export const responseToBoolean = [
       >
     >
   ) => {
-    const fixedResponse =
-      response?.data.Response === "True" ? true : false
-    const newResponse: AxiosResponse<
-      Film | ErrorResponse | FilmsResponse
-    > = Object.assign(response, {
-      data: { Response: fixedResponse }
-    })
-
-    return newResponse as AxiosResponse<
+    response?.data.Response === "True" ? true : false
+    //@ts-expect-error
+    return response as AxiosResponse<
       Film | ErrorResponse | FilmsResponse
     >
   },
