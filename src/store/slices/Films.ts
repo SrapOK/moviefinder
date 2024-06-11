@@ -111,6 +111,7 @@ const filmsSlice = createAsyncSlice({
 })
 
 export const selectFilmById = createAppSelector(
+  //@ts-expect-error
   [state => state.films.list, (state, imdbId) => imdbId],
   (films, imdbId) => {
     return films.find(item => item.imdbID === imdbId)

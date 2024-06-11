@@ -19,5 +19,6 @@ export default defineConfig({
       store: path.resolve(__dirname, "./src/store"),
       "@": path.resolve(__dirname, "./src")
     }
-  }
+  },
+  base: "/moviefinder"
 })

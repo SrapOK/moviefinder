@@ -20,16 +20,28 @@ export const privateInterseptor = [
     return Promise.reject(error)
   }
 ]
-
 export const responseToBoolean = [
   (
     response: AxiosResponse<
-      Film | ErrorResponse | FilmsResponse
+      Record<
+        | keyof Film
+        | keyof ErrorResponse
+        | keyof FilmsResponse,
+        string
+      >
     >
   ) => {
-    response.data.Response =
+    const fixedResponse =
       response?.data.Response === "True" ? true : false
-    return response
+    const newResponse: AxiosResponse<
+      Film | ErrorResponse | FilmsResponse
+    > = Object.assign(response, {
+      data: { Response: fixedResponse }
+    })
+
+    return newResponse as AxiosResponse<
+      Film | ErrorResponse | FilmsResponse
+    >
   },
   (error: any) => {
     return Promise.reject(error)

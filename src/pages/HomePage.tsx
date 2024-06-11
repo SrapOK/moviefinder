@@ -72,6 +72,7 @@ const HomePage = () => {
 
       <div
         className='w-full h-10 mt-10 flex flex-col gap-10'
+        //@ts-expect-error
         ref={intersectionRef}
       >
         {isLoading ? (
