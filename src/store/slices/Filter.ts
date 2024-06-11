@@ -14,7 +14,7 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  query: "John Wick",
+  query: "Star Wars",
   sortType: "imdbRating",
   sortOrder: "desc",
   page: 1
