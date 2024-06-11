@@ -4,6 +4,8 @@
 
 ![alt text](public/image.png)
 
+## Follow the link to see demonstration on github pages [Movie Finder](https://srapok.github.io/moviefinder/)
+
 ## Tech Stack
 
 - `React`
