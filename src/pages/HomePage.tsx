@@ -12,6 +12,7 @@ import {
   useAppDispatch,
   useAppSelector
 } from "@/hooks/store"
+
 import {
   addFilms,
   fetchFilms,
@@ -19,12 +20,12 @@ import {
   selectFilmsStatus,
   selectTotalFilms
 } from "store/slices/Films"
-
 import {
   selectPage,
   selectQuery,
   setPage
 } from "store/slices/Filter"
+
 import useElementOnScreen from "@/hooks/useElementOnScreen"
 
 const scrollToTop = () => {

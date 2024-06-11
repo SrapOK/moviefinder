@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
+import FilmDetails from "widgets/FilmDetails"
 import {
   selectFilmById,
   type Film
 } from "store/slices/Films"
 import { useAppSelector } from "@/hooks/store"
 import filmApi, { ErrorResponse } from "shared/api/films"
-
-import FilmDetails from "widgets/FilmDetails"
 
 const FilmPage = () => {
   const { id } = useParams()

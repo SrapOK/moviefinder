@@ -7,6 +7,7 @@ import MainPage from "pages/HomePage"
 import RootLayout from "pages/RootLayout"
 import Film from "pages/Film"
 import ErrorPage from "pages/ErrorPage"
+
 import { FILM_PAGE, HOME_PAGE } from "./paths"
 
 const router = createBrowserRouter([

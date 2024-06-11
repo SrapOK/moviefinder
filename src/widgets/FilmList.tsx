@@ -1,7 +1,7 @@
+import { FC, memo } from "react" 
 import FilmCard, {
   FilmCardProps
 } from "components/FilmCard"
-import { FC, memo } from "react"
 
 interface FilmListProps {
   list: FilmCardProps[]

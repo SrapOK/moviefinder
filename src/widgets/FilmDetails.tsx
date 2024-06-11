@@ -1,10 +1,9 @@
 import { FC } from "react"
 
-import FilmInfoRow from "shared/ui/FilmInfoRow"
 import AboutTheFilm from "components/AboutTheFilm"
-import { Film } from "store/slices/Films"
-
 import { AboutTheFilmProps } from "components/AboutTheFilm"
+import { Film } from "store/slices/Films"
+import FilmInfoRow from "shared/ui/FilmInfoRow"
 
 export type FilmDetails = Pick<
   Film,
