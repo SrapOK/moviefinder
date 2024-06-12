@@ -27,10 +27,7 @@ import {
 } from "store/slices/Filter"
 
 import useElementOnScreen from "@/hooks/useElementOnScreen"
-
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" })
-}
+import scrollToTop from "@/helpers/scrollToTop"
 
 const HomePage = () => {
   const films = useAppSelector(selectFilms)

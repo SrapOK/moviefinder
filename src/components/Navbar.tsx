@@ -3,14 +3,16 @@ import { Link } from "react-router-dom"
 import { HOME_PAGE } from "app/providers/Router/paths"
 
 import ToggleTheme from "shared/ui/ToggleTheme"
+import scrollToTop from "@/helpers/scrollToTop"
 
 const Navbar = () => {
   return (
-    <div className='navbar bg-base-100 gap-6 mb-6  flex-col md:px-10 pt-10 md:pt-8 justify-center md:flex-row'>
+    <div className=' shadow md:fixed md:top-0 backdrop-blur transition-shadow duration-200 z-20 navbar bg-base-100 gap-6 mb-6 flex-col md:px-6 py-4 bg-opacity-90 justify-center md:flex-row'>
       <div className='navbar-start hidden md:block'>
         <Link
           to={HOME_PAGE}
           className='btn btn-ghost text-xl text-primary'
+          onClick={scrollToTop}
         >
           MovieFinder
         </Link>

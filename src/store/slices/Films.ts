@@ -26,7 +26,7 @@ export interface Film {
   Actors: string
   Country: string
   Poster: string
-  Genres: string
+  Genre: string
   Response: boolean
 }
 

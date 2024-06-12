@@ -9,7 +9,7 @@ export type AboutTheFilmProps = Pick<
   | "Director"
   | "Actors"
   | "Writer"
-  | "Genres"
+  | "Genre"
   | "Runtime"
   | "Country"
 >
@@ -19,7 +19,7 @@ const AboutTheFilm: FC<AboutTheFilmProps> = ({
   Director,
   Actors,
   Writer,
-  Genres,
+  Genre,
   Runtime,
   Country
 }) => {
@@ -48,7 +48,7 @@ const AboutTheFilm: FC<AboutTheFilmProps> = ({
       <FilmInfoRow
         title='Genres'
         className='gap-4'
-        info={Genres}
+        info={Genre}
       />
       <FilmInfoRow
         title='Runtime'

@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className='mb-8 md:mb-16'>
       <Navbar />
-      <div className='flex justify-center'>
+      <div className='md:mt-36 flex justify-center'>
         <div className='join join-vertical md:join-horizontal mx-10 w-fit'>
           <SearchInput />
           <FilterController
