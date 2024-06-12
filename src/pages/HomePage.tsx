@@ -28,6 +28,7 @@ import {
 
 import useElementOnScreen from "@/hooks/useElementOnScreen"
 import scrollToTop from "@/helpers/scrollToTop"
+import FilterPanel from "widgets/FilterPanel"
 
 const HomePage = () => {
   const films = useAppSelector(selectFilms)
@@ -61,6 +62,7 @@ const HomePage = () => {
 
   return (
     <div>
+      <FilterPanel />
       <div className='min-h-screen'>
         <Suspense fallback={<p>loading</p>}>
           <FilmList list={deferredFilms} />
