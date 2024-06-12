@@ -23,7 +23,7 @@ const FilmCard: FC<FilmCardProps> = props => {
   return (
     <Link to={FILM_PAGE + props.imdbID}>
       <div className='my-4 card min-w-[300px] w-min  card-compact bg-base-100 shadow-xl transition-all duration-500 hover:shadow-2xl hover:border-accent hover:-translate-y-6 hover:scale-105 cursor-pointer border border-transparent '>
-        <figure>
+        <figure className=' min-h-64 max-h-[450px]'>
           <img
             src={
               isNa(props.Poster)

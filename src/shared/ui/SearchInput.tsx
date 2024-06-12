@@ -15,8 +15,6 @@ import { debounce } from "@/helpers/debounce"
 
 import { AiOutlineSearch } from "react-icons/ai"
 
-//add loupe
-
 interface SearchInputProps
   extends InputHTMLAttributes<HTMLInputElement> {}
 
@@ -26,7 +24,7 @@ const SearchInput: FC<SearchInputProps> = props => {
   const [localQuery, setLocalQuery] = useState(defaultQuery)
 
   const debouncedSetQuery = useMemo(() => {
-    return debounce(query => dispatch(setQuery(query)), 500)
+    return debounce(query => dispatch(setQuery(query)), 400)
   }, [])
 
   const onChange: ChangeEventHandler<
