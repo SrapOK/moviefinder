@@ -1,3 +1,4 @@
+import isNa from "@/helpers/isNa"
 import { FC, HTMLAttributes } from "react"
 
 interface FilmInfoRowProps
@@ -16,7 +17,7 @@ const FilmInfoRow: FC<FilmInfoRowProps> = ({
       className={"flex justify-between " + props.className}
     >
       <div>{title}:</div>
-      <div>{info}</div>
+      <div>{isNa(info) ? "" : info}</div>
     </div>
   )
 }

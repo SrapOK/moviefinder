@@ -2,8 +2,12 @@ import { FC } from "react"
 
 import AboutTheFilm from "components/AboutTheFilm"
 import { AboutTheFilmProps } from "components/AboutTheFilm"
+
 import { Film } from "store/slices/Films"
 import FilmInfoRow from "shared/ui/FilmInfoRow"
+import isNa from "@/helpers/isNa"
+
+import defaultPoster from "@/assets/defaultPoster.webp"
 
 export type FilmDetails = Pick<
   Film,
@@ -28,7 +32,7 @@ const FilmDetails: FC<FilmDetails> = ({
       <div className='hero-content flex-col lg:flex-row gap-10'>
         <div>
           <img
-            src={Poster || "poster"}
+            src={isNa(Poster) ? defaultPoster : Poster}
             className='max-w-sm rounded-lg shadow-2xl'
           />
           <div className=' rounded-lg py-2 px-4 space-y-2 text-lg bg-accent bg-opacity-80 mt-6 text-accent-content'>
@@ -55,9 +59,11 @@ const FilmDetails: FC<FilmDetails> = ({
             </h2>
             <AboutTheFilm {...props} />
           </div>
-          <p className='text-pretty indent-10 leading-relaxed text-justify py-8'>
-            {Plot}
-          </p>
+          {!isNa(Plot) ? (
+            <p className='text-pretty indent-10 leading-relaxed text-justify py-8'>
+              {Plot}
+            </p>
+          ) : null}
         </div>
       </div>
     </div>

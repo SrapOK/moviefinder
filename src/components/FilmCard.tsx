@@ -22,15 +22,15 @@ export type FilmCardProps = Pick<
 const FilmCard: FC<FilmCardProps> = props => {
   return (
     <Link to={FILM_PAGE + props.imdbID}>
-      <div className='my-4 card min-w-[300px] w-min  card-compact bg-base-100 shadow-xl transition-all duration-500 hover:shadow-2xl hover:border-accent hover:-translate-y-6 hover:scale-105 cursor-pointer border border-transparent '>
-        <figure className=' min-h-64 max-h-[450px]'>
+      <div className='my-4 card min-w-[300px] w-min  card-compact bg-base-100 shadow-xl transition-all duration-500 hover:shadow-2xl hover:border-accent  cursor-pointer border border-transparent '>
+        <figure className='min-h-72'>
           <img
             src={
               isNa(props.Poster)
                 ? defaultPoster
                 : props.Poster
             }
-            className=' min-w-fit'
+            className=' min-w-fit object-fill max-h-[400px]'
             alt='poster'
           />
         </figure>
@@ -38,7 +38,11 @@ const FilmCard: FC<FilmCardProps> = props => {
           <h2 className='card-title mx-auto'>
             {props.Title}
           </h2>
-          {!isNa(props.Plot) ? <p>{props.Plot}</p> : null}
+          {!isNa(props.Plot) ? (
+            <p className=' indent-4 text-justify'>
+              {props.Plot}
+            </p>
+          ) : null}
           <div className='card-actions flex flex-col lg:flex-row lg:justify-between'>
             <div
               className={`${

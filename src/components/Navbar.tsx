@@ -7,7 +7,7 @@ import scrollToTop from "@/helpers/scrollToTop"
 
 const Navbar = () => {
   return (
-    <div className=' shadow md:fixed md:top-0 backdrop-blur transition-shadow duration-200 z-20 navbar bg-base-100 gap-6 mb-6 flex-col md:px-6 py-4 bg-opacity-90 justify-center md:flex-row'>
+    <div className=' md:shadow md:fixed md:top-0 backdrop-blur transition-shadow duration-200 z-20 navbar bg-base-100 gap-6 mb-6 flex-col md:px-6 py-4 bg-opacity-90 justify-center md:flex-row'>
       <div className='navbar-start hidden md:block'>
         <Link
           to={HOME_PAGE}
