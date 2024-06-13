@@ -34,11 +34,22 @@ const SearchInput: FC<SearchInputProps> = props => {
     debouncedSetQuery(ev.target.value)
   }
 
+  const allowedCharacters = /[^\W]+|[\s;'":]/giu
+
   return (
-    <label className='input input-bordered flex items-center gap-2 join-item'>
+    <label className='input input-bordered flex items-center gap-2 join-item indicator '>
+      {localQuery.match(allowedCharacters)?.join("") !==
+        localQuery && localQuery.length ? (
+        <span className='indicator-item badge badge-warning indicator-center indicator-top md:indicator-bottom'>
+          use the Latin alphabet
+        </span>
+      ) : null}
+
       <input
-        type='text'
-        placeholder='Search'
+        type='search'
+        placeholder='Search the film...'
+        title='use the Latin alphabet'
+        pattern={allowedCharacters.source}
         className={"grow"}
         onChange={onChange}
         value={localQuery}
